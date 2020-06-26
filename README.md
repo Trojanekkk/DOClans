@@ -1,2 +1,2 @@
 # DOClans
-in-game statiscis scraper
+in-game statistics scraper

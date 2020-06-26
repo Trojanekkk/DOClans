@@ -22,17 +22,16 @@ result = session_requests.get(login_url)
 
 print('Getting login info and tokens...')
 
+
 print("Your credentials won't be saved anywhere, it's only required to grab clans info")
 username = input("Username: ")
 password = getpass.getpass(prompt="Password (password won't display): ")
-server = input("Server (pl2): ")
+server = ''
+while server != "pl2":
+    server = input("Server (default: pl2): ") or "pl2"
 startRange = input("Start checking at: ")
 stopRange = input("Stop checking at: ")
-
 tic = time.perf_counter()
-
-if not server:
-    server = 'pl2'
 
 tree = html.fromstring(result.text)
 auth_token = list(set(tree.xpath("//input[@name='reloadToken']/@value")))[0]
@@ -53,7 +52,7 @@ result = session_requests.post(
 print('Logging in DONE\n')
 
 for i in range(int(startRange),int(stopRange) + 1):
-    time.sleep(randrange(5,10)/10)
+    time.sleep(randrange(1,2))
     toc = time.perf_counter()
     print('at ' + str("{:10.2f}".format(toc - tic)) + 's checking id: ' + str(i) + '     ', end="", flush=True)
     url = 'https://' + str(server) + '.darkorbit.com/indexInternal.es?action=internalNewClanDetails&clanId=' + str(i)
