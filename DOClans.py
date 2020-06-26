@@ -52,7 +52,7 @@ for i in range(1,10):
         clanMembers = list(set(tree.xpath("//li[@class='clan_item']/span[text() = 'Liczba członków']/following-sibling::span/text()")))
         clanRank = list(set(tree.xpath("//li[@class='clan_item']/span[text() = 'Ranga klanu']/following-sibling::span/text()")))
         clanCompany = list(set(tree.xpath("//li[@class='clan_item']/span[text() = 'Firma']/following-sibling::span/text()")))
-        clanStatus = list(set(tree.xpath("//li[@class='clan_item']/span[text() = 'Elite']/following-sibling::span/text()")))
+        clanStatus = list(set(tree.xpath("//li[@class='clan_item']/span[text() = 'Status']/following-sibling::span/text()")))
         
         clan = {
             'id': i,
