@@ -3,6 +3,8 @@ from lxml import html
 import pandas as pd
 import json, codecs
 import time
+from random import randrange
+import getpass
 
 def isEmpty (clanAttrArr):
     if (len(clanAttrArr) > 0):
@@ -22,8 +24,12 @@ print('Getting login info and tokens...')
 
 print("Your credentials won't be saved anywhere, it's only required to grab clans info")
 username = input("Username: ")
-password = input("Password: ")
+password = getpass.getpass(prompt="Password: ")
 server = input("Server (pl2): ")
+startRange = input("Start checking at: ")
+stopRange = input("Stop checking at: ")
+
+tic = time.perf_counter()
 
 if not server:
     server = 'pl2'
@@ -46,9 +52,10 @@ result = session_requests.post(
 )
 print('Logging in DONE\n')
 
-for i in range(1,10):
-    time.sleep(1)
-    print('checking id: ' + str(i) + '     ', end="", flush=True)
+for i in range(int(startRange),int(stopRange) + 1):
+    time.sleep(randrange(5,10)/10)
+    toc = time.perf_counter()
+    print('at ' + str("{:10.2f}".format(toc - tic)) + 's checking id: ' + str(i) + '     ', end="", flush=True)
     url = 'https://' + str(server) + '.darkorbit.com/indexInternal.es?action=internalNewClanDetails&clanId=' + str(i)
     result = session_requests.get(
         url,
@@ -97,4 +104,9 @@ with open('clans.json', 'wb') as f:
 
 df =  pd.DataFrame.from_dict(clans)
 df.to_csv('clans.csv')
-print(clans)
+
+toc = time.perf_counter()
+print('Script DONE in ' + str("{:7.2f}".format(toc - tic)))
+input("Press Enter to continue...")
+
+# print(clans)
