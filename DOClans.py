@@ -1,5 +1,7 @@
 import requests
 from lxml import html
+import pandas as pd
+import json, codecs
 import time
 
 clans = list()
@@ -52,4 +54,9 @@ for i in range(1,10):
         clans.append(clan)
         print(clan)
 
+with open('data.json', 'wb') as f:
+    json.dump(clans, codecs.getwriter('utf-8')(f), ensure_ascii=False)
+
+df =  pd.DataFrame.from_dict(clans)
+df.to_csv('clans.csv')
 print(clans)
