@@ -24,7 +24,7 @@ print('Getting login info and tokens...')
 
 print("Your credentials won't be saved anywhere, it's only required to grab clans info")
 username = input("Username: ")
-password = getpass.getpass(prompt="Password: ")
+password = getpass.getpass(prompt="Password (password won't display): ")
 server = input("Server (pl2): ")
 startRange = input("Start checking at: ")
 stopRange = input("Stop checking at: ")
